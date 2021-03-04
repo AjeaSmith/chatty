@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ChatPage from "./pages/ChatPage";
+import "./style.css";
+import ChatContextProvider from "./context/ChatContext";
+import ProtectedRoute from "./protected/Auth";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="main h-screen flex justify-center items-center">
+      <Router>
+        <Switch>
+          <ChatContextProvider>
+            <Route exact path="/" component={LoginPage} />
+            <ProtectedRoute path="/chat/:username" component={ChatPage} />
+          </ChatContextProvider>
+        </Switch>
+      </Router>
+    </main>
   );
 }
 
